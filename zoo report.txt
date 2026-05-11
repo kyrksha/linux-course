@@ -38,6 +38,55 @@ Use% для раздела / - 25%; использовал команду df
 Этап 7:
 Установил iotop - apt install iotop -y
 
+Этап 8:
+Установил atop командой apt install atop -y
+Запустил atop. Изучил экраны - sudo atop
+Посмотрел доступные логи - ls /var/log
+			   cat /var/log/atop/atop_20260511
+
+Этап 9:
+Запустил фоновый процесс nc -l 4444 & 
+Нашел его PID и убил - ps aux
+		       kill 8584
+Еще есть способ kill -9 8584. Это принудительное завершение.
+
+Этап 10:
+Посмотрел текущие репозитории - apt-cache pkgnames
+Обновил список пакетов - sudo apt update
+Количество доступных обновлений - 18
+
+Этап 11:
+Добавил в crontab задание */5 * * * * logger "Bit was here"; Использовал команду crontab -e
+Это задание каждые 5 минут делает запись в системный журнал "Bit was here"
+Проверил что оно появилось - sudo systemctl status cron
+Удалил задание - crontab -e
+
+Этап 12:
+Посмотрел все сервисы - systemctl list-unit-files
+SSH активен - systemctl list-unit-files
+В автозагрузке есть SSH - systemctl list-unit-files
+Упавших сервисов нет - systemctl list-unit-files --state=failed
+В автозагрузке ssh, snap, atop и другие сервисы - systemctl list-unit-files
+
+Этап 13:
+Посмотрел все переменные окружения - sudo env
+Пути поиска исполняемых файлов: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin
+Проверил текущего пользователя
+Узнал свою оболочку
+Создал переменную export ZOO_SECRET="racoon_bit_was_here"
+Проверил ее - printenv ZOO_SECRET
+Нашел свою переменную среди всех
+Посмотрел системные переменные - cat /etc/environment
+
+Этап 14:
+Создал каталог /opt/zoo/configs - mkdir -p /opt/zoo/configs
+Создал файл /opt/zoo/configs/real_config.txt - cat > real_config.txt
+Создал символическую ссылку /opt/zoo/configs/active_config.txt - ln -s real_config.txt active_config.txt
+Проверил ссылку
+Прочитал файл через симлинк cat /opt/zoo/configs/active_config.txt
+Создал еще одну ссылку /opt/zoo/configs/broken_config.txt, которая указывает на /dev/null - ln -s /dev/null broken_config.txt
+Попробовал прочитать broken_config.txt. Ничего не вывелось.
+Удалил broken_config.txt и создал вместо него нормальный файл с содержимым: server_port=9090 - rm broken_config.txt
 
 
 
