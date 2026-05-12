@@ -37,6 +37,9 @@ Use% для раздела / - 25%; использовал команду df
 
 Этап 7:
 Установил iotop - apt install iotop -y
+Посмотрел только пишущие процессы - sudo iotop -o
+Запустил iotop для неинтерактивного вывода - sudo iotop -b
+Посмотрел только процессы root - sudo iotop -u root
 
 Этап 8:
 Установил atop командой apt install atop -y
